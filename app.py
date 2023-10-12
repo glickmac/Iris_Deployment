@@ -1,7 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from prediction import predict
+import joblib
+
+def predict(data):
+    clf = joblib.load("rf_model.sav")
+    return clf.predict(data)
 
 # Function to map classes to images
 def class_to_image(class_name):
