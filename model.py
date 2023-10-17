@@ -13,10 +13,6 @@ iris = load_iris()
 X = iris.data 
 y = iris.target 
 
-# selecting features and target data
-X = iris_df[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']]
-y = iris_df[['Species']]
-
 # split data into train and test sets
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=seed, stratify=y)
