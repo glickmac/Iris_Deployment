@@ -8,13 +8,10 @@ def predict(data):
     return clf.predict(data)
 
 # Function to map classes to images
-def class_to_image(class_name):
-    if class_name == "setosa":
-        return "images/setosa.jpg"  # Replace with the actual path to your setosa image
-    elif class_name == "versicolor":
-        return "images/versicolor.jpg"  # Replace with the actual path to your versicolor image
-    elif class_name == "virginica":
-        return "images/virginica.jpg"  # Replace with the actual path to your virginica image
+def class_to_image(class_index):
+    class_names = {0: "setosa", 1: "versicolor", 2: "virginica"}
+    class_name = class_names.get(class_index, "setosa")
+    return f"images/{class_name}.jpg"
 
 st.title('Classifying Iris Flowers')
 st.markdown('Model to classify iris flowers into \
@@ -38,10 +35,15 @@ st.text('')
 if st.button("Predict type of Iris"):
     result = predict(
         np.array([[sepal_l, sepal_w, petal_l, petal_w]]))
-    st.text(result[0])
+    
+    # Map numeric prediction to class name
+    class_names = {0: "setosa", 1: "versicolor", 2: "virginica"}
+    predicted_class = class_names.get(result[0], "unknown")
+    
+    st.text(f"Predicted: {predicted_class}")
 
     # Display the image/icon corresponding to the predicted class
-    image_path = class_to_image(result[0].split("-")[1])
+    image_path = class_to_image(result[0])
     st.image(image_path, use_column_width=True)
 
 
